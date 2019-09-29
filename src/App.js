@@ -1,18 +1,22 @@
 import React, { Component } from 'react';
+import { Drizzle } from 'drizzle';
+
 import { DrizzleProvider } from 'drizzle-react'
+import './App.css';
 import Loading from './containers/Loading';
 import Browser from './components/Browser';
-import './App.css';
+import KittyCoreABI from './contracts/abis/KittyCoreABI.json'
 
 class App extends Component {
   render() {
-    const drizzleOptions = {
-      contracts: []
+    const options = {
+      contracts: [KittyCoreABI]
     };
+    const drizzle = new Drizzle(options);
 
     return (
-      <DrizzleProvider options={drizzleOptions}>
-        <Loading>
+      <DrizzleProvider contracts={drizzle.contracts} options={drizzle}>
+        <Loading drizzleContext={drizzle}>
           <Browser />
         </Loading>
       </DrizzleProvider>

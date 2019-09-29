@@ -1,4 +1,4 @@
-import React, { Component, Children } from 'react';
+import React, { Component, Children, cloneElement } from 'react';
 import { drizzleConnect } from 'drizzle-react';
 
 class Loading extends Component {
@@ -7,6 +7,7 @@ class Loading extends Component {
   }
 
   render() {
+    const { drizzleStatus, web3, contracts } = this.props;
     if (window.web3 === undefined || this.props.web3.status === 'failed') {
       return(
         // Display a web3 warning.
@@ -19,7 +20,10 @@ class Loading extends Component {
 
     if (this.props.drizzleStatus.initialized) {
       // Load the dapp.
-      return Children.only(this.props.children);
+      const childrenWithProps = Children.map(this.props.children, child =>
+        cloneElement(child, { drizzleContext: { drizzleStatus: drizzleStatus, web3: web3, contracts: contracts }})
+      );
+      return childrenWithProps;
     }
 
     return(
@@ -34,9 +38,11 @@ class Loading extends Component {
 
 // May still need this even with data function to refresh component on updates for this contract.
 const mapStateToProps = state => {
+  console.log('STATE: ', state);
   return {
     drizzleStatus: state.drizzleStatus,
     web3: state.web3,
+    contracts: state.contracts,
   };
 }
 
