@@ -6,8 +6,10 @@ const KittySearch = (props) => {
   const [currentKittyQuery, setCurrentKittyQuery] = useState('');
   const [currentKitty, setCurrentKitty] = useState({});
   const [currentKittyImgUrl, setCurrentKittyImgUrl] = useState('');
+  const [initialLoad, setInitialLoad] = useState(true);
 
   async function grabImage() {
+    console.log('CHECK: ', currentKittyQuery);
     const k = await fetch(`https://api.cryptokitties.co/kitties/${currentKittyQuery}`)
     const kitty = await k.json();
     return kitty.image_url;
@@ -15,7 +17,9 @@ const KittySearch = (props) => {
 
   useEffect(() => {
     grabImage()
-      .then(img => setCurrentKittyImgUrl(img));
+      .then(img => {
+        setCurrentKittyImgUrl(img)
+      });
 
     return () => {
       setCurrentKittyImgUrl('');
@@ -25,6 +29,53 @@ const KittySearch = (props) => {
   const handleChange = (evt) => {
     setCurrentKittyQuery(evt.target.value);
   };
+
+  const getRandomArbitrary = (min, max) => {
+    return Math.floor(Math.random() * (max - min)) + min;
+  }
+
+  const generateRandomKittyId = async (methods) => {
+    const totalSupply = await methods.totalSupply().call();
+    return getRandomArbitrary(1, totalSupply);
+  }
+
+  const handleRandomSubmit = async (evt) => {
+    evt.preventDefault();
+    const { methods } = CryptoKitties;
+
+    const kittyId = await generateRandomKittyId(methods);
+
+
+    const {
+      isGestating,
+      isReady,
+      cooldownIndex,
+      nextActionAt,
+      siringWithId,
+      birthTime,
+      matronId,
+      sireId,
+      generation,
+      genes
+    } = await methods.getKitty(kittyId).call();
+
+    const kittyStruct = {
+      isGestating,
+      isReady,
+      cooldownIndex,
+      nextActionAt,
+      siringWithId,
+      birthTime,
+      matronId,
+      sireId,
+      generation,
+      genes
+    };
+
+    setInitialLoad(false);
+    setCurrentKittyQuery(kittyId);
+    setCurrentKitty(kittyStruct);
+  }
 
   const handleSubmit = async (evt) => {
     evt.preventDefault();
@@ -56,25 +107,41 @@ const KittySearch = (props) => {
       genes
     };
 
+    setInitialLoad(false);
+    setCurrentKittyQuery(currentKittyQuery);
     setCurrentKitty(kittyStruct);
-    setCurrentKittyQuery('');
   };
 
   return (
     <Fragment>
       <form onSubmit={handleSubmit}>
-        <label>
+        <label className="stacked-label">
           Search for a Kitty by their unique ID
-          <input
-            type="text"
-            value={currentKittyQuery}
-            onChange={handleChange}
-          />
         </label>
-        <input type="submit" value="Find the Kitty" />
+        <input
+          className="text-input-search"
+          type="text"
+          value={currentKittyQuery}
+          onChange={handleChange}
+        />
+        <input
+          className="kitty-search-btn"
+          type="submit"
+          value="Find the Kitty"
+        />
       </form>
-
-      <KittyInfo {...currentKitty} imgUrl={currentKittyImgUrl} />
+      <div className="button-div">
+        <button
+          className="random-kitty-button"
+          type="button"
+          onClick={handleRandomSubmit}
+        >
+          Find Random Kitty
+        </button>
+      </div>
+      <div className={initialLoad ? '' : "kitty-info"}>
+        <KittyInfo {...currentKitty} imgUrl={currentKittyImgUrl} initialLoad={initialLoad} />
+      </div>
     </Fragment>
   );
 }

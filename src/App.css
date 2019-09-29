@@ -24,14 +24,135 @@ body, html {
 }
 
 .browser {
-  display: block;
-  position: relative;
+  display: flex;
+  flex-direction: column;
   margin: 0 auto;
   background-color: #1fc8db;
   background-image: linear-gradient(141deg, #9fb8ad 0%, #1fc8db 51%, #2cb5e8 75%);
   width: auto;
-  height: 100vh;
+  height: auto;
   border: solid 4px white;
   border-radius: 3px;
   text-align: center;
+}
+
+.button-div {
+  height: 5vh;
+  display: flex;
+  margin: 0 auto;
+  margin-top: 4%;
+}
+
+.stacked-label {
+  display: block;
+  margin-bottom: 4vh;
+}
+
+.inline-p {
+  display: inline-flex;
+  font-size: 3vh;
+}
+
+.details {
+  display: inline-flex;
+  flex-flow: row;
+  height: auto;
+  margin: 0 auto;
+  padding-left: 5%;
+}
+
+.mr-5 {
+  margin-right: 5%;
+}
+
+.kitty {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+  margin: 0 auto;
+}
+
+.kitty-search-btn {
+  background-color: #626b75;
+  color: white;
+  border: solid 2px white;
+  border-radius: 4px;
+  height: 5vh;
+  font-size: 3vh;
+  margin-top: 2%;
+}
+
+.text-input-search {
+  margin-top: 2%;
+  margin-right: 2%;
+  border: solid 2px white;
+  border-radius: 4px;
+  height: 5vh;
+  width: 40%;
+  text-align: center;
+}
+
+.random-kitty-button {
+  color: white;
+  border: solid 2px white;
+  border-radius: 4px;
+  height: 5vh;
+  font-size: 3vh;
+  width: 100%;
+  margin: 0 auto;
+
+  background: linear-gradient(87deg, #9622e4, #0d0c0d, #d2ca60);
+  background-size: 1600% 1600%;
+  -webkit-animation: AnimationName 30s ease infinite;
+  -moz-animation: AnimationName 30s ease infinite;
+  -o-animation: AnimationName 30s ease infinite;
+  animation: AnimationName 30s ease infinite;
+}
+
+.word-wrap {
+  word-break: break-word;
+  display: flex;
+  text-align: center;
+  flex-wrap: wrap;
+  flex-flow: column;
+  margin-right: 5%;
+  margin-left: 5%;
+  font-size: 3vh;
+}
+
+p {
+  color: #5fc356;
+}
+
+.kitty-info {
+  display: flex;
+  flex-direction: column;
+  height: 70vh;
+  margin-top: 5%;
+  background: rgba(0, 0, 0, 0.9);
+  border-top-left-radius: 4%;
+  border-top-right-radius: 4%;
+  text-align: center;
+}
+
+@-webkit-keyframes AnimationName {
+  0%{background-position:0% 50%}
+  50%{background-position:100% 50%}
+  100%{background-position:0% 50%}
+}
+@-moz-keyframes AnimationName {
+  0%{background-position:0% 50%}
+  50%{background-position:100% 50%}
+  100%{background-position:0% 50%}
+}
+@-o-keyframes AnimationName {
+  0%{background-position:0% 50%}
+  50%{background-position:100% 50%}
+  100%{background-position:0% 50%}
+}
+@keyframes AnimationName {
+  0%{background-position:0% 50%}
+  50%{background-position:100% 50%}
+  100%{background-position:0% 50%}
 }

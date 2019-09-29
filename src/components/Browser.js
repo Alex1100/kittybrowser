@@ -7,13 +7,6 @@ import { CONTRACT_NAME, CONTRACT_ADDRESS } from '../config';
 import KittySearch from '../containers/KittySearch';
 
 class Browser extends Component {
-  constructor(props) {
-    super(props);
-    console.log("PROPS IN BROWSER: ", props);
-    this.state = {};
-  }
-
-
   componentDidMount() {
     const web3 = new Web3(window.ethereum);
 
@@ -25,7 +18,6 @@ class Browser extends Component {
     );
 
     // Add the contract to the drizzle store
-    console.log('CONTEXT: ', this.context)
     this.context.drizzle.addContract({
       contractName: CONTRACT_NAME,
       web3Contract: kittyContract,
