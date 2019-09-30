@@ -20,8 +20,8 @@ const mockData = {
 
 describe('KittySearchForm Test', () => {
   const component = shallow(<KittySearchForm {...mockData} />);
-  
-  it(`Changes the value of the prop 'value' on the input field`, () => {
+
+  it(`tests that an onSubmit is included on the form`, () => {
     const inputField = component.find('.text-input-search');
     expect(inputField.props().value).toEqual(currentKittyQuery);
     expect(component.props().children.props.hasOwnProperty('onSubmit')).toEqual(true);
