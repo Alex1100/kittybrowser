@@ -15,8 +15,8 @@ class App extends Component {
     const drizzle = new Drizzle(options);
 
     return (
-      <DrizzleProvider contracts={drizzle.contracts} options={drizzle}>
-        <Loading drizzleContext={drizzle}>
+      <DrizzleProvider options={drizzle}>
+        <Loading>
           <Browser />
         </Loading>
       </DrizzleProvider>

@@ -3,7 +3,6 @@ import { object } from 'prop-types';
 import Web3 from 'web3';
 import KittyCoreABI from '../contracts/abis/KittyCoreABI.json';
 import { CONTRACT_NAME, CONTRACT_ADDRESS } from '../config';
-// import { drizzleConnect } from 'drizzle-react';
 import KittySearch from '../containers/KittySearch';
 
 class Browser extends Component {

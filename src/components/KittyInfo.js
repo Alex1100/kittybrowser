@@ -1,17 +1,23 @@
 import React, { Fragment } from 'react';
 
 export const KittyInfo = (props) => {
+  let birthDay = props.birthTime;
+  const options = { year: 'numeric', month: 'long', day: 'numeric' };
+  if (props.birthTime) {
+    birthDay = new Date(props.birthTime * 1000).toLocaleString('en', options);
+  }
+
   return (
     <Fragment>
       {props.genes && <p className="word-wrap">Genes: {props.genes}</p>}
 
       <div className="details">
         {props.generation && <p className="inline-p mr-5 left">
-          Generation: {props.generation}
+          Generation:<br/> {props.generation}
         </p>}
 
         {props.birthTime && <p className="inline-p">
-          Birth Time: {props.birthTime}
+          Birth Time:<br/> {birthDay}
         </p>}
 
       </div>
